@@ -19,16 +19,19 @@ namespace SportsStore.Models
                 new Product {Name = "Human Chess Board", Description="A fun game for the family", Category="Chess", Price=75m},
                 new Product {Name = "Bling King", Description="Gold plated diamon studded king", Category="Chess", Price=1200m }
             };
+            products.ForEach(p => context.Products.Add(p));
+            context.SaveChanges();
+
 
             Order aliceOrder = new Order
             {
                 Customer = "Alice Smith",
                 TotalCost = 68.45m,
                 Lines = new List<OrderLine>
-            {
-                new OrderLine { ProductId = 2, Count = 2 },
-                new OrderLine { ProductId = 3, Count = 1 }
-            }
+                {
+                    new OrderLine { ProductId = 2, Count = 2 },
+                    new OrderLine { ProductId = 3, Count = 1 }
+                }
             };
 
             Order peterOrder = new Order
@@ -36,21 +39,20 @@ namespace SportsStore.Models
                 Customer = "Peter Jones",
                 TotalCost = 79791m,
                 Lines = new List<OrderLine>
-            {
-                new OrderLine { ProductId = 5, Count = 1 },
-                new OrderLine { ProductId = 6, Count = 3 },
-                new OrderLine {ProductId = 1, Count = 3 }
-            }
+                {
+                    new OrderLine { ProductId = 5, Count = 1 },
+                    new OrderLine { ProductId = 6, Count = 3 },
+                    new OrderLine {ProductId = 1, Count = 3 }
+                }
             };
 
             List<Order> orders = new List<Order>();
             orders.Add(aliceOrder);
             orders.Add(peterOrder);
-
-            products.ForEach(p => context.Products.Add(p));
             orders.ForEach(o => context.Orders.Add(o));
-
             context.SaveChanges();
+
+
         }
     }
 }

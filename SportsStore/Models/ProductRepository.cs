@@ -26,9 +26,17 @@ namespace SportsStore.Models
             }
         }
 
-        public Task<Order> DeleteOrdersAsync(int orderId)
+        public async Task<Order> DeleteOrdersAsync(int orderId)
         {
-            throw new NotImplementedException();
+            Order dbEntry = context.Orders.Find(orderId);
+
+            if (dbEntry != null)
+            {
+                context.Orders.Remove(dbEntry);
+            }
+            await context.SaveChangesAsync();
+
+            return dbEntry;
         }
 
         public async Task<Product> DeleteProductsAsync(int productId)
