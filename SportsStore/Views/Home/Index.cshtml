@@ -1,0 +1,26 @@
+﻿
+<div ng-app="loginApp" data-ng-controller="LoginController as lc" data-ng-init="lc.init()">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="well">
+                <fieldset>
+                    <legend>Log in</legend>
+
+                    <div class="form-group">
+                        <label for="username">Username:</label> <input type="text" id="username" name="username" data-ng-model="lc.username" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label> <input type="password" id="password" name="password" data-ng-model="lc.password" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="button" class="btn btn-info" value="Log in" />
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/ng-controllers/loginController.js"></script>
