@@ -968,6 +968,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PrepController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -980,6 +981,7 @@
     <Compile Include="Infrastructure\Identity\StoreRoleManager.cs" />
     <Compile Include="Infrastructure\Identity\StoreUser.cs" />
     <Compile Include="Infrastructure\Identity\StoreUserManager.cs" />
+    <Compile Include="Infrastructure\CustomResolver.cs" />
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderLine.cs" />
