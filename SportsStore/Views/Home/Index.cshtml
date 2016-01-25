@@ -1,26 +1,79 @@
 ﻿
-<div ng-app="loginApp" data-ng-controller="LoginController as lc" data-ng-init="lc.init()">
+<div ng-app="loginApp" data-ng-controller="LoginController as lc" data-ng-cloak data-ng-init="lc.init()">
     <div class="row">
         <div class="col-sm-6">
             <div class="well">
-                <fieldset>
-                    <legend>Log in</legend>
+                <form id="authenticateForm" name="lc.authenticateForm" novalidate>
+                    <fieldset>
+                        <legend>Log in</legend>
 
-                    <div class="form-group">
-                        <label for="username">Username:</label> <input type="text" id="username" name="username" data-ng-model="lc.username" />
-                    </div>
+                        <div class="form-group">
+                            <label for="username">Username:</label> <input type="text" id="username" name="username" data-ng-model="lc.username" required />
+                            <span class="help-block" data-ng-show="lc.showUsernameValidationHelper()">The username is required.</span>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password">Password:</label> <input type="password" id="password" name="password" data-ng-model="lc.password" />
-                    </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label> <input type="password" id="password" name="password" data-ng-model="lc.password" required />
+                            <span class="help-block" data-ng-show="showPasswordValidationHelper()">The password is required.</span>
+                        </div>
 
-                    <div class="form-group">
-                        <input type="button" class="btn btn-info" value="Log in" />
-                    </div>
-                </fieldset>
+                        <div class="form-group">
+                            <input type="button" class="btn btn-info" value="Log in" data-ng-click="lc.authenticate()" data-ng-disabled="!lc.authenticateForm.$valid" />
+                        </div>
+                    </fieldset>
+                </form>
+                <p><strong>Authenticated?</strong> {{lc.isAuthenticatedDisplay() }} </p>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <alert ng-repeat="a in lc.alerts" type="{{a.type}}" close="lc.removeAlert($index)">{{a.msg}}</alert>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Product Controller Functions</div>
+
+        <table class="table table-striped">
+            <tr>
+                <td><button class="btn btn-info" data-ng-click="lc.getProducts()">Get Products</button></td>
+                <td><button class="btn btn-info" data-ng-click="lc.deleteProduct()" data-ng-disabled="lc.products.length == 0 || lc.selectedProductId == 0">Delete Product</button></td>
+                <td><button class="btn btn-info" data-ng-click="lc.changeProduct()" data-ng-disabled="lc.products.length == 0 || lc.selectedProductId == 0">Change Product</button></td>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr data-ng-click="lc.clearSelectedProduct()">
+                <th>ID</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            <tr data-ng-repeat="p in lc.products" data-ng-click="lc.setSelectedProduct(p.Id)" data-ng-class="{danger: p.Id == lc.selectedProductId }">
+                <td>
+                    {{p.Id}}
+                </td>
+                <td>
+                    {{p.Category}}
+                </td>
+                <td>
+                    {{p.Description}}
+                </td>
+                <td>
+                    {{p.Name}}
+                </td>
+                <td>
+                    <span data-ng-show="lc.editMode && lc.selectedProductId == p.Id">
+                        <input type="text" name="editPrice" data-ng-model="lc.newPrice" class="form-control" value="{{p.Price}}" />
+                        <button class="btn btn-default" data-ng-click="lc.changePrice($index)">Change price</button>
+                    </span>
+
+                    <span data-ng-show="!lc.editMode">{{p.Price}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
 </div>
 
 <script src="~/Scripts/ng-controllers/loginController.js"></script>
